@@ -42,7 +42,7 @@ export default class ContactDelition extends LightningElement {
             this.contacts = null;
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Contact successfully deleted!',
+                    title: 'Contacts successfully deleted!',
                     message: result,
                     variant: 'success',
                 }),
