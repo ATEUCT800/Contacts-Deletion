@@ -17,13 +17,12 @@ const COLUMNS = [
 ];
 export default class ContactDelition extends LightningElement {
     columns = COLUMNS;
-    wiredContactResult
     
     @track contacts;
     @wire(getContacts)
-    wiredContacts(result) {
-        this.wiredContactResult = result;
-        this.contacts = result.data;
+    wiredContacts(response) {
+        this.wiredContactResult = response;
+        this.contacts = response.data;
         
     }
     getSelected(){
@@ -32,7 +31,6 @@ export default class ContactDelition extends LightningElement {
         return selected
     }
     deleteContacts(){
-        console.log("start deleting contacts");
         let ContactsForDelition = this.getSelected();
         let ContactsForDelitionID = [];
         ContactsForDelition.forEach(element => {
@@ -44,15 +42,12 @@ export default class ContactDelition extends LightningElement {
             this.contacts = null;
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Success',
+                    title: 'Contact successfully deleted!',
                     message: result,
                     variant: 'success',
                 }),
             );
             return refreshApex(this.wiredContactResult);
-
         });
-        console.log(JSON.parse(JSON.stringify(this.contacts)) );
-        console.log("finish deleting contacts");
     }
 }
