@@ -34,8 +34,6 @@ export default class ContactDelition extends LightningElement {
         setTimeout(() => {
             this.isLoaded = true;
         }, 0);
-        // this.isLoaded = true;
-        // this.isLoaded = false;
         totalRecords().then(result=>{
             this.vTotalRecords = result;
         });
@@ -46,9 +44,8 @@ export default class ContactDelition extends LightningElement {
         return selected
     }
     deleteContacts(){
-        let ContactsForDelition = this.handleCheckBoxClick();
         contactDelition({
-            contactsList: ContactsForDelition
+            contactsList: this.handleCheckBoxClick()
         }).then(result => {
             this.contacts = null;
             this.dispatchEvent(

@@ -20,14 +20,11 @@ public with sharing class ContactDelitionController {
     }
     @AuraEnabled
     public static void contactDelition( List<Contact> contactsList ) {
-        List<Id> ids = new List<Id>();
-        for(Contact c : contactsList){
-            ids.add(c.id);
-        }
-        List<Case> related_cases = [ SELECT Id FROM Case WHERE ContactId IN :ids  ];
-        for(Case c : related_cases){
+        List<Case> relatedCases = [ SELECT Id FROM Case WHERE ContactId IN :contactsList  ];
+        for(Case c : relatedCases){
             c.ContactId = null;
         }
+        update relatedCases;
         delete contactsList;
     }
 }
